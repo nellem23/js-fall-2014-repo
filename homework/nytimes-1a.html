@@ -105,6 +105,8 @@
     var form = $('#search-form');
     form.on('submit', function(e) {
         e.preventDefault();
+        var query = document.getElementById('query').value();
+        var wantsCriticsPicks = $('#critics-picks').val(); //gives you a jquery DOM element (same as above)
         console.log('submitted');
     });
     </script>
