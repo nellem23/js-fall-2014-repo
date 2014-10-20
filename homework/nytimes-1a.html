@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Your Weekend Read</title>
+
+        <style>
+        	body {
+        		width: 50%;
+        		padding: 5%;
+        		float: center;
+        		margin: auto;
+        	}
+        	ul {
+				font-family: Helvetica, 'Helvetica Neue', sans serif;
+			}
+
+			a:link {
+				text-decoration: none;
+				color: #000000;
+			}
+
+			h1  {
+				font-family: "Courier New", Courier, monospace;
+				}
+			p {
+				font-size: 24px;
+			}
+
+        </style>
+
+    </head>
+<body>
+
+<form> 
+<input type="text" id="query"/>
+<label> Critics Picks
+</form>
+	<div id="head">
+	<a href="http://www.nytimes.com/">
+		<img src= "https://nasmm.files.wordpress.com/2014/08/new-york-times-logo.jpg")>
+			</a>
+	</div>
+
+	<hr>
+    <ul id="list"></ul>
+
+    <script id="event-tpl" type="text/template">
+        {{#movies}}
+        <div>
+            <h1>
+                <a href="{{event_detail_url}}">{{event_name}}</a>
+                {{#times_pick}}
+                <img src="http://www.clipartbest.com/cliparts/LcK/75X/LcK75Xpca.jpeg" width=50 height=50 />
+                {{/times_pick}}
+            </h1>
+            {{{web_description}}}
+        </div>
+        {{/movies}}
+    </script>
+
+    <script src="mustache.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+   <script type="css" src="style.css"></script>
+    <script>
+
+
+    var eventTpl = $('#event-tpl').html();
+
+    var filterMovies = function(results) {
+        var movies = [];
+
+        for (var i = 0; i < results.length; i++) {
+            if (results[i].category == 'Movies') {
+                movies.push(results[i]);
+            }
+        }
+
+        return movies;
+    }
+
+    var renderMovies = function(results) {
+        var movies = filterMovies(results);
+        var movieHtml = Mustache.render(eventTpl, {movies: movies});
+        var movieDom = $(movieHtml);
+        $('#list').append(movieDom);
+    }
+
+    $.ajax({
+        url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+        data: {
+            'api-key': 'bfafa19d35ada614d3b65412bc33138d:7:69985333',
+            'date_range': '2014-10-13:2014-10-14'
+        },
+        dataType: 'jsonp',
+        success: function(response) {
+            renderMovies(response.results);
+        }
+    });
+    console.log('Script done');
+
+    fetch();
+
+    var form = $('#search-form');
+    form.on('submit', function(e) {
+        e.preventDefault();
+        console.log('submitted');
+    });
+    </script>
+</body>
