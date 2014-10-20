@@ -35,7 +35,8 @@
 
 <form> 
 <input type="text" id="query"/>
-<label> Critics Picks
+<label> Critics Picks</label>
+<input>
 </form>
 	<div id="head">
 	<a href="http://www.nytimes.com/">
@@ -93,7 +94,7 @@
             'api-key': 'bfafa19d35ada614d3b65412bc33138d:7:69985333',
             'date_range': '2014-10-13:2014-10-14'
             'query' : 'Hacker', //will only get results with hacker in it
-            'critics-picks' : 'Y',
+            'critics-picks' : criticspicks,
         },
         dataType: 'jsonp',
         success: function(response) {
@@ -102,13 +103,18 @@
     });
     console.log('Script done');
 
-    fetch();
 
     var form = $('#search-form');
     form.on('submit', function(e) {
         e.preventDefault();
         var query = document.getElementById('query').value();
         var wantsCriticsPicks = $('#critics-picks').prop(checked); //gives you a jquery DOM element (same as above)
+        var yOrN = false;
+        if (wantsCriticsPicks){
+            yOrN = true
+        }
+        fetch(query, yOrNy);
+
         console.log('submitted', query, wantsCriticsPicks);
     });
     </script>
