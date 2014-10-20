@@ -88,10 +88,12 @@
     }
 
     $.ajax({
-        url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+        url: 'http://api.nytimes.com/svc/events/v2/search.jsonp',
         data: {
             'api-key': 'bfafa19d35ada614d3b65412bc33138d:7:69985333',
             'date_range': '2014-10-13:2014-10-14'
+            'query' : 'Hacker', //will only get results with hacker in it
+            'critics-picks' : 'Y',
         },
         dataType: 'jsonp',
         success: function(response) {
